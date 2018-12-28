@@ -140,7 +140,14 @@ class VectorTileSource extends Evented implements Source {
             if (data && data.resourceTiming)
                 tile.resourceTiming = data.resourceTiming;
 
-            if (this.map._refreshExpiredTiles && data) tile.setExpiryData(data);
+            if (this.map._refreshExpiredTiles && data) {
+                // change frequency of traffic data updates
+                if(data.expires && this.id === "mapbox://mapbox.mapbox-traffic-v1") {
+                    // １時間ごとに更新
+                    data.expires = Date.now() + 60 * 60 * 1000;
+                }
+                tile.setExpiryData(data);
+            }
             tile.loadVectorData(data, this.map.painter);
 
             callback(null);
