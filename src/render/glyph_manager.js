@@ -62,7 +62,7 @@ class GlyphManager {
                 return;
             }
 
-            glyph = this._tinySDF(entry, stack, id);
+            glyph = this._tinySDF(entry, 'sans-serif', id);
             if (glyph) {
                 entry.glyphs[id] = glyph;
                 callback(null, {stack, id, glyph});
@@ -137,9 +137,9 @@ class GlyphManager {
             return;
         }
 
-        if (!this._doesCharSupportLocalGlyph(id)) {
-            return;
-        }
+        // if (!this._doesCharSupportLocalGlyph(id)) {
+        //     return;
+        // }
 
         let tinySDF = entry.tinySDF;
         if (!tinySDF) {
